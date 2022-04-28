@@ -15,3 +15,28 @@
 <p align='center'>
   <em>Fig. 1 self-supervised learning 구축 과정을 설명, [LeCun's Talk](https://www.youtube.com/watch?v=7I0Qt7GALVk)  </em>
 </p>
+
+다음 [저장고](https://github.com/jason718/awesome-self-supervised-learning)를 확인하면 잘 엄선된 self-supervised learning 연구 리스트를 확인할 수 있습니다. 깊이 있는 학습에 관심이 있다면 반드시 논문을 읽어보시기를 바랍니다.  
+
+해당 포스트는 NLP와 Generative model에 대해 자세히 설명하지 않습니다.
+
+# Why Self-Supervied Learning?
+Self-supervised learning 데이터로부터 얻는 다양한 레이블 정보를 자유롭게 활용 가능하다는 장점이 있습니다. 해당 연구가 진행된 동기는 꽤 직관적입니다. 완벽히 레이블링 된 데이터셋을 만드는 것은 매우 큰 비용이 소모되지만, 레이블이 되어있지 않은 데이터는 매 순간 생성되고 있습니다. 이 더 많은 레이블링 되지 않은 데이터셋을 사용하기 위해, 데이터셋 자체의 객관적인 특성을 배우도록 지도학습을 진행하는 방법이 있습니다.  
+
+*self-supervised learning*은 *pretext task*라고도 부르며 지도학습의 손실함수를 사용할 수 있게 합니다. 하지만, 여기서 새롭게 발명해낸 태스크에 마지막 성능은 보통 중요하지 않습니다. 대신 해당 태스크를 통해 학습된 중간 단계의 representation이 의미론적 또는 구조론적 의미를 지니거나, 실질적인 *downstream task*에 도움이 되기를 바랍니다.  
+
+예를 들어 이미지를 무작위로 회전시킨 후 모델이 얼마만큼 이미지가 회전하였는지를 학습할 수 있습니다. 회전 예측 태스크가 종료되면 마치 보조 태스크를 대할 때처럼, 실질적인 정확도는 중요하지 않습니다. 하지만 모델이 실제 환경 태스크에 도움이 되는 높은 품질의 잠재 변수를 학습하기를 기대합니다. 실제 환경 태스크의 예시로, 매우 적은 레이블을 가지고 모델을 학습해야 하는 경우가 있습니다.  
+
+포괄적으로 말하자면, 모든 Generative model은 self-supervised로 고려될 수 있습니다만, 목적이 서로 다릅니다. Generative model은 다양하고 실제와 유사한 이미지를 생성하는 것에 집중하지만, self-supervisd representation learning은 다양한 환경에서 도움이 될 만한 범용성 있는 좋은 특징을 추출하는 것을 목표로 합니다.  
+
+# Image-Based
+
+
+
+
+
+
+
+
+
+
