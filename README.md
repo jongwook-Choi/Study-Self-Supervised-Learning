@@ -30,7 +30,7 @@ Self-supervised learning 데이터로부터 얻는 다양한 레이블 정보를
 포괄적으로 말하자면, 모든 Generative model은 self-supervised로 여겨질 수 있습니다만, 목적이 서로 다릅니다. Generative model은 다양하고 실제와 유사한 이미지를 생성하는 것에 집중하지만, self-supervisd representation learning은 다양한 환경에서 도움이 될 만한 범용성 있는 좋은 특징을 추출하는 것을 목표로 합니다.  
 
 ## Image-Based
-이미지 수준의 믾은 self-supervised representation learning 방법이 제안되었습니다. 일반적인 절차는 레이블이 지정되지 않은 하나 이상의 pretext task에 대해 모델을 학습한 후, 모델의 중간 특징 계층 하나를 사용하여 ImageNet 분류에 대한 다항 로지스틱 회귀분석을 진행하는 것입니다. 마지막 분류성능은 얼마나 representation을 잘 학습했는지를 나타내게 됩니다.  
+이미지 수준의 많은 self-supervised representation learning 방법이 제안되었습니다. 일반적인 절차는 레이블이 지정되지 않은 하나 이상의 pretext task에 대해 모델을 학습한 후, 모델의 중간 특징 계층 하나를 사용하여 ImageNet 분류에 대한 다항 로지스틱 회귀분석을 진행하는 것입니다. 마지막 분류성능은 얼마나 representation을 잘 학습했는지를 나타내게 됩니다.  
 
 최근, 일부 연구자들은 가중치를 공유하며 레이블링 된 데이터에 대해 지도학습을 진행하고 레이블이 되지 않은 데이터에 대해서는 self-supervised pretext task를 **동시에** 진행하는 방법에 제안되고 있습니다. ( [Zhai et al, 2019](https://arxiv.org/abs/1905.03670), [Sun et al, 2019](https://arxiv.org/abs/1909.11825) )  
 
@@ -42,6 +42,14 @@ Self-supervised learning 데이터로부터 얻는 다양한 레이블 정보를
 2. 각각의 패치들은 다양한 랜덤변환(i.e. translation, rotation, scaling, etc)이 적용되어 왜곡됩니다. 왜곡된 패치들은 모두 같은 *surrogate class*에 포함됩니다.
 3. *pretext task*는 surrogate class 들을 구별해주는 것이 됩니다. 이러한 방법을 통해 원하는 만큼의 surrogate class들을 만들 수 있습니다.
 
+<p align='center'>
+  <img src="./images/2.Exemplar-CNN.PNG" alt/>
+</p>
+<p align='center'>
+  <em>Fig. 2. 좌측 상단 사슴의 이미지가 원본이미지이며, 다른 모든 이미지는 원본 이미지에 대해 랜덤 변환이 적용된 패치들이다.
+    모든 패치들은 pretext task에서 같은 surrogate class로 분류되어야 한다.
+  </em>
+</p>
 
 
 
