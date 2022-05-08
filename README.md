@@ -1,6 +1,6 @@
 # Study-Self-Supervised-Learning
-> Self Supervised Representation Learning을 정리한 [원문](https://lilianweng.github.io/posts/2019-11-10-self-supervised/)을 번역하며 공부를 시작합니다.
-
+> Self Supervised Representation Learning을 정리한 [원문](https://lilianweng.github.io/posts/2019-11-10-self-supervised/)을 번역하며 공부를 시작합니다. (진행중...)  
+> 수식작성 참고 [link](https://github.com/black7375/fluid-size/wiki/The-theory-of-font-size-and-readability)
 # Self-supervised Representation Learning
 딥러닝과 머신러닝에서 충분한 레이블 정보가 주어진 지도학습(supervied learning)은 이미 매우 좋은 성능을 내고 있습니다. 좋은 성능은 일반적으로 많은 양의 레이블 정보가 필요하지만, 레이블링 작업은 비용 문제로 인해 규모를 키우기가 어렵습니다. 라벨링 되지 않은 데이터가 사람에 의해 라벨링 된 데이터에 비해 상당히 많은 것을 고려하면, 해당 데이터를 사용하지 않는 것은 다소 비효율적이라 생각됩니다. 하지만 레이블링이 안 된 데이터를 사용하는 비지도학습(unsupervised learning)은 지도학습에 비해 쉽지 않으며 훨씬 덜 효율적으로 작동합니다.
 
@@ -46,13 +46,12 @@ Self-supervised learning 데이터로부터 얻는 다양한 레이블 정보를
   <img src="./images/2.Exemplar-CNN.PNG" alt/>
 </p>
 <p align='center'>
-  <em>Fig. 2. 좌측 상단 사슴의 이미지가 원본이미지이며, 다른 모든 이미지는 원본 이미지에 대해 랜덤 변환이 적용된 패치들이다.
-    모든 패치들은 pretext task에서 같은 surrogate class로 분류되어야 한다.
+  <em>Fig. 2. 좌측 상단 사슴의 이미지가 원본이미지이며, 다른 모든 이미지는 원본 이미지에 대해 랜덤 변환이 적용된 패치들입니다.
+    모든 패치들은 pretext task에서 같은 surrogate class로 분류되어야 합니다.
   </em>
 </p>
 
-
-
+**`Rotation`**([Gidaris et al. 2018](https://arxiv.org/abs/1803.07728)), 이미지의 회전은 주어진 이미지의 semantic 맥락을 유지한 채 변형 가능한 값싼 방법입니다. 각각의 input 이미지는 <img src="https://render.githubusercontent.com/render/math?math=\color{white}\90^{\circ}">의 배수로 회전해, 각각 \[ <img src="https://render.githubusercontent.com/render/math?math=\color{white}\0^{\circ}, 90^{\circ}, 180^{\circ}, 270^{\circ}"> ] 회전하게 됩니다. 모델은 이미지가 얼만큼 회전했는지를 학습하게 되고, 이는 4-class 분류문제가 됩니다.
 
 
 
