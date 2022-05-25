@@ -1,6 +1,7 @@
 # Study-Self-Supervised-Learning
 > Self Supervised Representation Learning을 정리한 [원문](https://lilianweng.github.io/posts/2019-11-10-self-supervised/)을 번역하며 공부를 시작합니다. (진행중...)  
-> 수식작성 참고 [link](https://github.com/black7375/fluid-size/wiki/The-theory-of-font-size-and-readability)
+> 수식작성 참고 [link](https://github.com/black7375/fluid-size/wiki/The-theory-of-font-size-and-readability)  
+> Github Dark theme를 기준으로 작성됐습니다.
 # Self-supervised Representation Learning
 딥러닝과 머신러닝에서 충분한 레이블 정보가 주어진 지도학습(supervied learning)은 이미 매우 좋은 성능을 내고 있습니다. 좋은 성능은 일반적으로 많은 양의 레이블 정보가 필요하지만, 레이블링 작업은 비용 문제로 인해 규모를 키우기가 어렵습니다. 라벨링 되지 않은 데이터가 사람에 의해 라벨링 된 데이터에 비해 상당히 많은 것을 고려하면, 해당 데이터를 사용하지 않는 것은 다소 비효율적이라 생각됩니다. 하지만 레이블링이 안 된 데이터를 사용하는 비지도학습(unsupervised learning)은 지도학습에 비해 쉽지 않으며 훨씬 덜 효율적으로 작동합니다.
 
