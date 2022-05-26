@@ -54,7 +54,16 @@ Self-supervised learning 데이터로부터 얻는 다양한 레이블 정보를
 
 **`Rotation`**([Gidaris et al. 2018](https://arxiv.org/abs/1803.07728)), 이미지의 회전은 주어진 이미지의 semantic 맥락을 유지한 채 변형 가능한 값싼 방법입니다. 각각의 input 이미지는 <img src="https://render.githubusercontent.com/render/math?math=\color{white}\90^{\circ}">의 배수로 회전해, 각각 \[ <img src="https://render.githubusercontent.com/render/math?math=\color{white}\0^{\circ}, 90^{\circ}, 180^{\circ}, 270^{\circ}"> ] 회전하게 됩니다. 모델은 이미지가 얼만큼 회전했는지를 학습하게 되고, 이는 4-class 분류문제가 됩니다.
 
+### Patches
 
+### Colorization
+
+### Generative Modeling
+
+### Contrastive Learning
+
+
+## Video-Based
 
 
 
