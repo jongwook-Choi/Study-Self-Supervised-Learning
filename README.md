@@ -64,7 +64,14 @@ Self-supervised learning 데이터로부터 얻는 다양한 레이블 정보를
 
 
 ## Video-Based
+비디오는 의미상으로 연관된 일련의 프레임들입니다. 이때, 시간상으로 가까운 프레임은 멀리 있는 프레임보다 상관관계가 더 높습니다. 그리고 프레임의 순서는 물체의 부드러운 움직임과 중력이 바닥을 향하는 것과 같은 추론 혹은 물리 규칙을 나타내기도 합니다.  
+  
+비디오에 Self-supervised learning을 적용하는 일반적인 순차는, 먼저 레이블이 지정되지 않은 비디오를 대상으로 하나 이상의 pretext task를 통해 모델을 훈련합니다. 이후 action classification, segmentation, object tracking과 같은 downstream task 대한 모델에 intermediate feature layer 하나를 제공하여 간단한 fine-tune을 진행하게 됩니다.  
 
+### Tracking
+물체의 움직임은 일련의 비디오 프레임들입니다. 이에 같은 물체가 가까운 프레임에서 화면에 나타나는 위치의 차이는 크지 않으며, 일반적으로 물체나 카메라의 작은 움직임에 의해 발생합니다. 따라서 가까운 프레임에 걸쳐 같은 개체에 대해 학습된 visual representation은 latent feature space에서 서로 가까워야 합니다. 이러한 아이디어에 기반하여, [Wang & Gupta, 2015](https://arxiv.org/abs/1505.00687)는 비디오에서 `움직이는 물체를 추적`하는 방식으로 visual representation을 비지도 학습하는 방식을 제안했습니다.  
+  
 
+  
 
 
