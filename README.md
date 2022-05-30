@@ -52,7 +52,7 @@ Self-supervised learning 데이터로부터 얻는 다양한 레이블 정보를
   </em>
 </p>
 
-**`Rotation`**([Gidaris et al. 2018](https://arxiv.org/abs/1803.07728)), 이미지의 회전은 주어진 이미지의 semantic 맥락을 유지한 채 변형 가능한 값싼 방법입니다. 각각의 input 이미지는 <img src="https://render.githubusercontent.com/render/math?math=\color{white}\90^{\circ}">의 배수로 회전해, 각각 \[ <img src="https://render.githubusercontent.com/render/math?math=\color{white}\0^{\circ}, 90^{\circ}, 180^{\circ}, 270^{\circ}"> ] 회전하게 됩니다. 모델은 이미지가 얼만큼 회전했는지를 학습하게 되고, 이는 4-class 분류문제가 됩니다.
+**`Rotation`**([Gidaris et al. 2018](https://arxiv.org/abs/1803.07728)), 이미지의 회전은 주어진 이미지의 semantic 맥락을 유지한 채 변형 가능한 값싼 방법입니다. 각각의 input 이미지는 $90^{\circ}$의 배수로 회전해, 각각 [ $0^{\circ}, 90^{\circ}, 180^{\circ}, 270^{\circ}$ ]  회전하게 됩니다. 모델은 이미지가 얼만큼 회전했는지를 학습하게 되고, 이는 4-class 분류문제가 됩니다.
 
 ### Patches
 
@@ -71,7 +71,11 @@ Self-supervised learning 데이터로부터 얻는 다양한 레이블 정보를
 ### Tracking
 물체의 움직임은 일련의 비디오 프레임들입니다. 이에 같은 물체가 가까운 프레임에서 화면에 나타나는 위치의 차이는 크지 않으며, 일반적으로 물체나 카메라의 작은 움직임에 의해 발생합니다. 따라서 가까운 프레임에 걸쳐 같은 개체에 대해 학습된 visual representation은 latent feature space에서 서로 가까워야 합니다. 이러한 아이디어에 기반하여, [Wang & Gupta, 2015](https://arxiv.org/abs/1505.00687)는 비디오에서 `움직이는 물체를 추적`하는 방식으로 visual representation을 비지도 학습하는 방식을 제안했습니다.  
   
-
+패치(eg. 30 frames)가 정확하게 추적된 움직임을 포함한다 했을때, 훈련데이터의 한 비디오에서 가장 첫 패치를 $X$로 마지막 패치는 $X^{+}$로 선택합니다. 만약 이 두 패치의 특징 벡터 간의 차이를 최소화하는 방향으로 모델을 학습한다면, 모델은 모든 패치를 같은 값으로 매핑하는 방향으로 학습됩니다. 이런 trivial solution을 막고자, 무작위로 $X^{-}$ 패치를 추가합니다. 이 모델은 feature space에서 $X$와 $X^{+}$ 간의 cosine distance를 $X$와 $X^{-}$ 보다 가깝게 하여 representation을 학습합니다. 이는 $D(X, X^{-}) > D(X, X{+})$ 로 표현되고 $D(.)$는 다음과 같습니다.
+$$ D(X_{1}, X_{2}) = 1 - \frac{f(X_{1})f(X_{2})}{||f(X_{1})||~||f(X_{2})||} $$
+ 
+이때, 손실함수는 다음과 같습니다.
+$$ L(X, X^{+}, X^{-}) = max(0, D(X, X^{+}) - D(X, X^{-}) + M) + weight \ decay \ regularization \ term $$
+$M$은 두 거리 사이의 최소 간격을 제어하는 스칼라 상수입니다; 논문에선 $M=0.5$입니다. 이 손실함수는 최적의 사례로 $D(X, X^{-}) >= D(X, X^{+}) + M$를 가집니다.  
   
-
-
+이런 형태의 손실함수는 다중 인물에 대한 다중 카메라 각도에서 촬영된 이미지 데이터셋에 대한 얼굴 인식 task에서 [triplet loss](https://arxiv.org/abs/1503.03832)로 불리기도 합니다. 
