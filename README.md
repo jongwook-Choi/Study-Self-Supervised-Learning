@@ -86,3 +86,32 @@ $M$은 두 거리 사이의 최소 간격을 제어하는 스칼라 상수입니
 [Vondrick et al. (2018)](https://arxiv.org/abs/1806.09594)은 **`Video colorization`** 을 self-supervised learning 문제로 제안했으며, 그 결과 별도의 fine-tuning 없이 video segmentation 및 unlabelled visual region tracking에 사용할 수 있는 풍부한 representation을 얻을 수 있었습니다.  
   
 Image-based colorization과는 달리 Video colorization은 비디오 프레임에 걸쳐 색상의 자연스러운 시간적 일관성을 활용해 색상의 normal reference 프레임에서 그레이스케일의 다른 target 프레임으로 색상을 복사하는 작업이 수행됩니다(따라서, 이 두 프레임은 시간상으로 멀리 떨어져 있지 않아야 합니다). 색상을 일관되게 복사하기 위해 모델은 서로 다른 프레임에서 상관된 픽셀을 추적하는 방법을 학습하도록 설계되었습니다.
+
+<p align='center'>
+  <img src="./images/16.Video-Colorization.PNG" alt/>
+</p>
+<p align='center'>
+  <em>Fig. 16. reference frame에서 그레이스케일인 target frames으로 색상을 복사하여 Video colorization (이미지 출처: Vondrick et al. 2018)
+  </em>
+</p>
+
+아이디어가 꽤나 단순하고 명석하다. $c_{i}$가 reference 프레임 $i-th$ 픽셀의 실제 색값이고 $c_{j}$가 target 프레임 $j-th$ 픽셀의 색값이라 하겠습니다. target 프레임 $\hat{c_{j}}$에서 $j-th$ 색에 대한 예측 값은 reference 프레임에 있는 모든 픽셀 색상의 가중 합이며, 여기서 가중치 항은 유사성을 측정합니다. 
+$$ \hat{c_{j}} = \sum_{j}A_{ij}c_{i} \ where \ A_{ij} = \frac{exp(f_{i}f_{j})}{\sum_{i^{\prime}}{f_{i^{\prime}}f_{j}}} $$
+
+여기서 $f$는 상응하는 픽셀에 학습된 임베딩이며; $i^{\prime}$는 reference 프레임의 모든 픽셀에 대한 인덱스입니다.  가중치 항은 [matching network](https://lilianweng.github.io/posts/2018-11-30-meta-learning/#matching-networks), [pointer network](https://lilianweng.github.io/posts/2018-06-24-attention/#pointer-network) 와 유사한 attention-based poiting mechanism을 구현합니다. 전체 유사도 행렬이 매우 클 수 있으므로 두 프레임 모두 다운샘플링됩니다. $c_{j}$와 $\hat{c_{j}}$ 사이의 categorical cross-entropy loss가 [Zhang et al. 2016](https://arxiv.org/abs/1603.08511)에서와 같이 quantized colors와 함께 사용됩니다.  
+  
+reference 프레임에 표시된 방식을 기반으로, 모델을 사용하여 tracking segmentation 혹은 human pose와 같은 여러 색상 기반 downstream task를 시간에 따라 완료할 수 있습니다. fine-tunning은 필요하지 않습니다. 
+
+<p align='center'>
+  <img src="./images/17.Colorization-apply.PNG" alt/>
+</p>
+<p align='center'>
+  <em>Fig. 16. Video Colorization을 사용하여 object segmentation 및 human pose를 시간 내에 추적할 수 있습니다. (이미지 출처: Vondrick et al. 2018)
+  </em>
+</p>
+
+> 일반적으로 ...
+>> - 여러 pretask tasks을 복합하여 사용하면 성능이 향상된다.
+>> - 더 깊은 네트워크는 representation의 표현력을 향상시킨다.
+>> - 지도학습기반 baselines은 여전히 self-supervised 기반과 비교해 성능이 좋다. 
+
