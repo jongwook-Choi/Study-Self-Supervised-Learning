@@ -78,7 +78,8 @@ $$ D(X_{1}, X_{2}) = 1 - \frac{f(X_{1})f(X_{2})}{||f(X_{1})||~||f(X_{2})||} $$
 $$ L(X, X^{+}, X^{-}) = max(0, D(X, X^{+}) - D(X, X^{-}) + M) + weight \ decay \ regularization \ term $$
 $M$은 두 거리 사이의 최소 간격을 제어하는 스칼라 상수입니다; 논문에선 $M=0.5$입니다. 이 손실함수는 최적의 사례로 $D(X, X^{-}) >= D(X, X^{+}) + M$를 가집니다.  
   
-이런 형태의 손실함수는 다중 인물에 대한 다중 카메라 각도에서 촬영된 이미지 데이터셋에 대한 얼굴 인식 task에서 [triplet loss](https://arxiv.org/abs/1503.03832)로 불리기도 합니다. 
+이런 형태의 손실함수는 다중 인물에 대한 다중 카메라 각도에서 촬영된 이미지 데이터셋에 대한 얼굴 인식 task에서 [triplet loss](https://arxiv.org/abs/1503.03832)로 불리기도 합니다. 예를 들어, 특정 인물의 특정 각도에서의 image인 $X^{a}$를 anchor 이미지라 하면, 같은 사람이지만 다른 각도의 image인 $X^{p}$은 positive 이미지고 , 다른 사람의 image인 $X^{n}$은 negative 이미지가 됩니다. 임베딩 공간에서, $X^{a}$는 $X^{n}$보다 $X^{p}$에 가까워야 합니다.  
+$$ L_{triplet}(X^{a}, X^{p}, X^{n}) = max(0, || \phi{(X^{a})} -  \phi{(X^{p})} ||\_{2}^{2} - ||\phi{(X^{a})} - \phi{(X^{n})} ||\_{2}^{2} + M) $$
 
 ### Frame Sequence
 
@@ -95,7 +96,7 @@ Image-based colorization과는 달리 Video colorization은 비디오 프레임�
   </em>
 </p>
 
-아이디어가 꽤나 단순하고 명석하다. $c_{i}$가 reference 프레임 $i-th$ 픽셀의 실제 색값이고 $c_{j}$가 target 프레임 $j-th$ 픽셀의 색값이라 하겠습니다. target 프레임 $\hat{c_{j}}$에서 $j-th$ 색에 대한 예측 값은 reference 프레임에 있는 모든 픽셀 색상의 가중 합이며, 여기서 가중치 항은 유사성을 측정합니다. 
+아이디어가 꽤나 단순하고 명석합니다. $c_{i}$가 reference 프레임 $i-th$ 픽셀의 실제 색값이고 $c_{j}$가 target 프레임 $j-th$ 픽셀의 색값이라 하겠습니다. target 프레임 $\hat{c_{j}}$에서 $j-th$ 색에 대한 예측 값은 reference 프레임에 있는 모든 픽셀 색상의 가중 합이며, 여기서 가중치 항은 유사성을 측정합니다. 
 $$ \hat{c_{j}} = \sum_{j}A_{ij}c_{i} \ where \ A_{ij} = \frac{exp(f_{i}f_{j})}{\sum_{i^{\prime}}{f_{i^{\prime}}f_{j}}} $$
 
 여기서 $f$는 상응하는 픽셀에 학습된 임베딩이며; $i^{\prime}$는 reference 프레임의 모든 픽셀에 대한 인덱스입니다.  가중치 항은 [matching network](https://lilianweng.github.io/posts/2018-11-30-meta-learning/#matching-networks), [pointer network](https://lilianweng.github.io/posts/2018-06-24-attention/#pointer-network) 와 유사한 attention-based poiting mechanism을 구현합니다. 전체 유사도 행렬이 매우 클 수 있으므로 두 프레임 모두 다운샘플링됩니다. $c_{j}$와 $\hat{c_{j}}$ 사이의 categorical cross-entropy loss가 [Zhang et al. 2016](https://arxiv.org/abs/1603.08511)에서와 같이 quantized colors와 함께 사용됩니다.  
