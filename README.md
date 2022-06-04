@@ -81,6 +81,19 @@ $M$은 두 거리 사이의 최소 간격을 제어하는 스칼라 상수입니
 이런 형태의 손실함수는 다중 인물에 대한 다중 카메라 각도에서 촬영된 이미지 데이터셋에 대한 얼굴 인식 task에서 [triplet loss](https://arxiv.org/abs/1503.03832)로 불리기도 합니다. 예를 들어, 특정 인물의 특정 각도에서의 image인 $X^{a}$를 anchor 이미지라 하면, 같은 사람이지만 다른 각도의 image인 $X^{p}$은 positive 이미지고 , 다른 사람의 image인 $X^{n}$은 negative 이미지가 됩니다. 임베딩 공간에서, $X^{a}$는 $X^{n}$보다 $X^{p}$에 가까워야 합니다.  
 $$ L_{triplet}(X^{a}, X^{p}, X^{n}) = max(0, || \phi{(X^{a})} -  \phi{(X^{p})} ||\_{2}^{2} - ||\phi{(X^{a})} - \phi{(X^{n})} ||\_{2}^{2} + M) $$
 
+triplet loss와는 살짝 다른 형태인 [n-pair loss](https://papers.nips.cc/paper/2016/hash/6b180037abbebea991d8b1232f8a8ca9-Abstract.html)는 robotics task의 관측값 임베딩 학습에 주로 사용된다. 추가적인 설명은 다음 섹션에서 설명한다. 
+
+<p align='center'>
+  <img src="./images/13.Tracking.PNG" alt/>
+</p>
+<p align='center'>
+  <em>Fig. 13. representation 학습을 통한 video object tracking의 Overview (이미지 출처: Wang & Gupta, 2015)
+  </em>
+</p>
+
+# Continue...
+
+
 ### Frame Sequence
 
 ### Video Colorization
